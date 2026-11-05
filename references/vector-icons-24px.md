@@ -13,13 +13,14 @@ When placing an icon in FigCraft inside a `batch`, wrap it in a `24×24` frame (
     "height": 20,
     "path": "M3 9.5L12 3L21 9.5V20C21 20.55 20.55 21 20 21H15V14H9V21H4C3.45 21 3 20.55 3 20V9.5Z",
     "props": {
+      "fills": [],
       "stroke": "#FAFAFA",
       "strokeWeight": 1.75
     }
   }
 }
 ```
-*(Tip: For outline icons, set `"stroke": "#HEX"`, `"strokeWeight": 1.75` or `2`, and omit `fill`. For solid/filled icons, set `"fill": "#HEX"`).*
+*(Important: Always include `"fills": []` on outline icons so closed SVG subpaths (`Z`) do not receive FigCraft's default `#D9D9D9` solid fill. For solid/filled icons, set `"fill": "#HEX"`).*
 
 ---
 
