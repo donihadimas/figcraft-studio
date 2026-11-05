@@ -17,12 +17,17 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME/.gemini/config/plugin
 
 **Completion criterion:** Output contains `STATUS=READY` or `STATUS=STARTED` on `PORT=7979`, and calling `figcraft/inspect_document` returns the active document JSON.
 
-## Step 2: Inspect Document State Before Mutating
+## Step 2: Auto-Open Existing `.figcraft` Project & Inspect State
 
-Call `figcraft/inspect_document` (`{"depth": 3}`) to read:
-- Existing pages (`pages`) and `currentPage`
-- Existing top-level frames and their `absoluteBounds` (so new frames are placed with a `100px` horizontal gap to the right of existing frames instead of overlapping at `x: 0, y: 0`)
-- Registered `styles` and `variables` count
+1. **Auto-Resume Previous File (`open_file`)**:
+   - If the workspace contains an existing `.figcraft` file (or the user mentions a previous project file), call `figcraft/open_file` (`{"path": "C:/absolute/path/to/project.figcraft"}`) automatically. The user never needs to open the project manually before the agent starts working.
+2. **Zero Focus Stealing**:
+   - Do **not** call `window.focus` while building. If the user minimizes the FigCraft window, let it stay minimized in the taskbar while all MCP commands run silently over `127.0.0.1:7979`.
+3. **Inspect Document (`inspect_document`)**:
+   - Call `figcraft/inspect_document` (`{"depth": 3}`) to read:
+     - Existing pages (`pages`) and `currentPage`
+     - Existing top-level frames and their `absoluteBounds` (so new frames are placed with a `100px` horizontal gap to the right of existing frames instead of overlapping at `x: 0, y: 0`)
+     - Registered `styles` and `variables` count
 
 ## Step 3: Build Layouts Atomically via `batch`
 
@@ -112,6 +117,7 @@ Every visual change MUST be verified before reporting completion:
    - Colliding elements or missing `sizingH: "fill"` / `sizingV: "hug"`
    - Low contrast between text and surface fills
 4. Fix any visual defects with `set_properties` or `batch` and re-screenshot until clean.
+5. Call `figcraft/save_file` (`{"path": "C:/absolute/path/to/<project>.figcraft"}`) to persist the document on disk so future sessions can resume seamlessly via `open_file`.
 
 ## Key Engine Commands Reference
 

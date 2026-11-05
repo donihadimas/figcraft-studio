@@ -18,10 +18,15 @@ Whenever a task involves FigCraft (`figcraft` MCP server):
      bash "$HOME/.gemini/config/plugins/figcraft-studio/scripts/ensure-figcraft.sh"
      ```
    - **MCP Hot-Bridge Fallback**: If the IDE started before FigCraft was open and native `call_mcp_tool` cached a startup connection error, invoke FigCraft MCP tools directly via `node "$HOME/.gemini/config/plugins/figcraft-studio/scripts/figcraft-call.mjs" --file <tool_name> <args.json>`.
-2. **Inspect Before Mutating**: Call `figcraft/inspect_document` (`{"depth": 3}`) to check existing frames/pages and avoid overlapping coordinates at `(0, 0)`. Place new top-level frames with a `80–100px` horizontal gap to the right of existing frames.
+2. **Inspect & Auto-Resume Project File (`open_file` / `inspect_document`)**:
+   - Never ask the user to open a `.figcraft` project file manually. If a `.figcraft` file exists in the workspace (e.g., `design/*.figcraft` or `*.figcraft`) and is not yet loaded, call `figcraft/open_file` (`{"path": "<absolute-path>.figcraft"}`) automatically.
+   - Call `figcraft/inspect_document` (`{"depth": 3}`) to check existing frames/pages and avoid overlapping coordinates at `(0, 0)`. Place new top-level frames with a `80–100px` horizontal gap to the right of existing frames.
+   - Never call `window.focus` unless explicitly requested—if the user minimizes FigCraft, all MCP operations must continue silently in the background without stealing window focus.
 3. **Atomic `batch` Construction**: Group related node creations into a single `figcraft/batch` call using `{"$step": n}` parent references.
 4. **Vector Icons Only (Zero Emoji Rule)**: Never use emojis (`🏠`, `⚙️`, `🔔`) as UI icons. Read `$HOME/.gemini/config/plugins/figcraft-studio/references/vector-icons-24px.md` and use exact `24×24` SVG path strings with `type: "vector"` and `"fills": []` inside `props` for outline icons.
-5. **Mandatory Visual Self-Critique (`screenshot`)**: Every FigCraft build MUST end with `view.zoomFit` + `figcraft/screenshot`. Inspect the rendered PNG against the **100-Point UI Critic Rubric** (`ui-critic-audit`) and fix any text clipping, collision, or contrast defect before finishing.
+5. **Mandatory Visual Self-Critique (`screenshot`) & Auto-Save (`save_file`)**:
+   - Every FigCraft build MUST end with `view.zoomFit` + `figcraft/screenshot`. Inspect the rendered PNG against the **100-Point UI Critic Rubric** (`ui-critic-audit`) and fix any text clipping, collision, or contrast defect before finishing.
+   - Auto-save progress via `figcraft/save_file` (`{"path": "<workspace-or-project>.figcraft"}`) so work is persisted on disk and can be resumed anytime.
 
 ---
 
