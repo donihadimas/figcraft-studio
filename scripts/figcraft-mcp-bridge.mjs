@@ -70,12 +70,28 @@ function checkPort(port, host = HOST, timeout = 400) {
 async function ensureGuiRunning() {
   if (await checkPort(PORT)) return;
 
-  const gui = spawn(figcraftGui, ["--control", String(PORT)], {
-    detached: true,
-    stdio: "ignore",
-    windowsHide: false,
-  });
-  gui.unref();
+  if (isWin) {
+    // Use Start-Process -WindowStyle Normal so FigCraft does not inherit SW_HIDE from the IDE language server
+    const ps = spawn(
+      "powershell.exe",
+      [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        `Start-Process -FilePath '${figcraftGui}' -ArgumentList '--control','${PORT}' -WindowStyle Normal`,
+      ],
+      { stdio: "ignore", windowsHide: true }
+    );
+    ps.unref();
+  } else {
+    const gui = spawn(figcraftGui, ["--control", String(PORT)], {
+      detached: true,
+      stdio: "ignore",
+      windowsHide: false,
+    });
+    gui.unref();
+  }
 
   const maxAttempts = 50; // 50 * 200ms = 10s
   for (let i = 0; i < maxAttempts; i++) {
