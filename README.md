@@ -1,6 +1,6 @@
 # 🎨 FigCraft Design Studio (`figcraft-studio`)
 
-**Industrial-Grade UI/UX Design Engineering & FigCraft MCP Automation Suite for Google Antigravity.**
+**Industrial-Grade UI/UX Design Engineering & FigCraft MCP Automation Suite for Google Antigravity, Claude Code, Cursor, and AI Coding Agents.**
 
 `figcraft-studio` turns your AI coding agent into a Principal UI/UX Designer & Design Engineer. It automatically launches the **FigCraft Desktop App** in live attach mode (`--control 7979`), queries a local BM25 design intelligence database (**192 product color palettes, 79 UI styles, 74 font pairings, 119 UX guidelines, 22 tech stacks**), enforces studio-grade optical geometry, and self-audits every canvas via screenshot against a **100-Point Design Critique Rubric**.
 
@@ -8,19 +8,48 @@
 
 ## ⚡ Quick Install
 
-### Windows (PowerShell)
+### 1. Google Antigravity (One-Line Installer)
+
+**Windows (PowerShell):**
 ```powershell
 irm https://raw.githubusercontent.com/donihadimas/figcraft-studio/main/install.ps1 | iex
 ```
 
-### macOS / Linux / Git Bash
+**macOS / Linux / Git Bash:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/donihadimas/figcraft-studio/main/install.sh | bash
 ```
 
-### Manual Git Clone (Global Plugin)
+---
+
+### 2. Claude Code Marketplace (`/plugin`)
+
+Run directly inside **Claude Code**:
 ```bash
-git clone https://github.com/donihadimas/figcraft-studio.git "$HOME/.gemini/config/plugins/figcraft-studio"
+# 1. Add the marketplace repository
+/plugin marketplace add donihadimas/figcraft-studio
+
+# 2. Install the plugin
+/plugin install figcraft-studio@figcraft-studio
+```
+
+Or via terminal CLI:
+```bash
+claude plugin marketplace add donihadimas/figcraft-studio
+claude plugin install figcraft-studio@figcraft-studio
+```
+
+---
+
+### 3. Universal Agent Skills CLI (`skills.sh` — Cursor, Windsurf, Claude, Antigravity, Copilot)
+
+Install all 13 skills or pick specific skills with `npx skills`:
+```bash
+# Install all skills in figcraft-studio
+npx skills add donihadimas/figcraft-studio
+
+# Or install specific skills only
+npx skills add donihadimas/figcraft-studio --skill ui-optical-polish --skill ux-flows-and-states
 ```
 
 ---
@@ -49,9 +78,13 @@ git clone https://github.com/donihadimas/figcraft-studio.git "$HOME/.gemini/conf
 
 ```text
 figcraft-studio/
-├── plugin.json                        # Antigravity plugin manifest
+├── .claude-plugin/
+│   ├── marketplace.json               # Claude Code Marketplace catalog manifest
+│   └── plugin.json                    # Claude Code Plugin manifest
+├── plugin.json                        # Google Antigravity Plugin manifest
+├── skill.json                         # Universal Agent Skills (skills.sh) manifest
 ├── README.md                          # Documentation
-├── install.ps1                        # Windows universal installer
+├── install.ps1                        # Windows universal installer (Antigravity & Claude Code)
 ├── install.sh                         # macOS / Linux universal installer
 ├── assets/
 │   └── logo.svg                       # Plugin icon
@@ -71,7 +104,7 @@ figcraft-studio/
 
 1. **FigCraft Desktop App** (`figcraft.exe` / `FigCraft.app`) installed.
 2. **Python 3.x** (standard library only, zero `pip` packages required) for `ui-ux-pro-max/scripts/search.py`.
-3. **FigCraft MCP Entry** in `~/.gemini/config/mcp_config.json` (automatically configured by `install.ps1`):
+3. **FigCraft MCP Entry**:
    ```json
    {
      "mcpServers": {
