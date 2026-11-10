@@ -13,17 +13,42 @@ import { spawn } from "node:child_process";
 const PORT = Number(process.env.FIGCRAFT_PORT || 7979);
 const HOST = "127.0.0.1";
 
+function findBinary(candidates) {
+  for (const p of candidates) {
+    if (p && fs.existsSync(p)) return p;
+  }
+  return candidates[0];
+}
+
 const isWin = process.platform === "win32";
-const figcraftGui =
-  process.env.FIGCRAFT_PATH ||
-  (isWin
-    ? "C:\\Program Files\\FigCraft\\figcraft.exe"
-    : "/Applications/FigCraft.app/Contents/MacOS/figcraft");
-const figcraftCli =
-  process.env.FIGCRAFT_CLI_PATH ||
-  (isWin
-    ? "C:\\Program Files\\FigCraft\\figcraft-cli.exe"
-    : "/Applications/FigCraft.app/Contents/MacOS/figcraft-cli");
+const figcraftGui = findBinary(
+  isWin
+    ? [
+        process.env.FIGCRAFT_PATH,
+        "C:\\Program Files\\FigCraft\\figcraft.exe",
+        `${process.env.LOCALAPPDATA || ""}\\Programs\\FigCraft\\figcraft.exe`,
+      ]
+    : [
+        process.env.FIGCRAFT_PATH,
+        "/usr/bin/figcraft",
+        "/usr/local/bin/figcraft",
+        "/Applications/FigCraft.app/Contents/MacOS/figcraft",
+      ]
+);
+const figcraftCli = findBinary(
+  isWin
+    ? [
+        process.env.FIGCRAFT_CLI_PATH,
+        "C:\\Program Files\\FigCraft\\figcraft-cli.exe",
+        `${process.env.LOCALAPPDATA || ""}\\Programs\\FigCraft\\figcraft-cli.exe`,
+      ]
+    : [
+        process.env.FIGCRAFT_CLI_PATH,
+        "/usr/bin/figcraft-cli",
+        "/usr/local/bin/figcraft-cli",
+        "/Applications/FigCraft.app/Contents/MacOS/figcraft-cli",
+      ]
+);
 
 function checkPort(port, host = HOST, timeout = 400) {
   return new Promise((resolve) => {
@@ -75,6 +100,19 @@ const proc = spawn(figcraftCli, ["mcp", "--attach", String(PORT)], {
   stdio: ["pipe", "pipe", "inherit"],
 });
 
+proc.stdin.write(
+  JSON.stringify({
+    jsonrpc: "2.0",
+    id: 1,
+    method: "initialize",
+    params: {
+      protocolVersion: "2024-11-05",
+      capabilities: {},
+      clientInfo: { name: "figcraft-caller", version: "1.0" },
+    },
+  }) + "\n"
+);
+
 let buffer = "";
 proc.stdout.on("data", (chunk) => {
   buffer += chunk.toString("utf8");
@@ -82,7 +120,12 @@ proc.stdout.on("data", (chunk) => {
   buffer = lines.pop() || "";
   for (const line of lines) {
     if (!line.trim()) continue;
-    const msg = JSON.parse(line);
+    let msg;
+    try {
+      msg = JSON.parse(line);
+    } catch {
+      continue;
+    }
     if (msg.id === 1) {
       proc.stdin.write(
         JSON.stringify({
@@ -123,15 +166,3 @@ proc.stdout.on("data", (chunk) => {
   }
 });
 
-proc.stdin.write(
-  JSON.stringify({
-    jsonrpc: "2.0",
-    id: 1,
-    method: "initialize",
-    params: {
-      protocolVersion: "2024-11-05",
-      capabilities: {},
-      clientInfo: { name: "figcraft-studio-cli", version: "1.3.0" },
-    },
-  }) + "\n"
-);

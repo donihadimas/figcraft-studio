@@ -29,8 +29,9 @@ const figcraftGui = findBinary(
       ]
     : [
         process.env.FIGCRAFT_PATH,
-        "/Applications/FigCraft.app/Contents/MacOS/figcraft",
+        "/usr/bin/figcraft",
         "/usr/local/bin/figcraft",
+        "/Applications/FigCraft.app/Contents/MacOS/figcraft",
       ]
 );
 
@@ -43,8 +44,9 @@ const figcraftCli = findBinary(
       ]
     : [
         process.env.FIGCRAFT_CLI_PATH,
-        "/Applications/FigCraft.app/Contents/MacOS/figcraft-cli",
+        "/usr/bin/figcraft-cli",
         "/usr/local/bin/figcraft-cli",
+        "/Applications/FigCraft.app/Contents/MacOS/figcraft-cli",
       ]
 );
 
