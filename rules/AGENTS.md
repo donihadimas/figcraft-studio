@@ -61,5 +61,6 @@ Load the specific skill when deep domain rules are needed:
 - **Web / Landing / SaaS Dashboard**: `figcraft-web-ui` + `design-taste-frontend` (Design Read, 3 Dials, Bento rules)
 - **Design Tokens & Components**: `figcraft-design-system` (Variables Light/Dark, Styles, Variants)
 - **App Launcher Icons & Brand Logos**: `figcraft-icon-craft` (Android Adaptive Safe Area $\varnothing 626$px, iOS Squircle $n \approx 4.5$, 16px silhouette test, 2-layer decoupled export)
+- **AI Background Removal (RMBG 2.0)**: `figcraft-remove-bg` (Neural background removal, ghost-alpha cleanup, 1024x1024 safe area adaptive icon centering, and tight subject cropping)
 - **FigCraft $\rightarrow$ Code Handoff**: `figcraft-to-code` (`inspect.code` + `variable.list` + `screenshot`)
 - **Visual QA & Redesign Critique**: `ui-critic-audit` (100-Point Rubric)

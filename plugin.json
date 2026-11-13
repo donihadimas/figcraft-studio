@@ -1,8 +1,8 @@
 {
   "name": "figcraft-studio",
   "displayName": "FigCraft Design Studio",
-  "version": "1.3.0",
-  "description": "Self-contained FigCraft MCP & Industrial UI/UX Design Engineering suite: auto-launches FigCraft (--control 7979) and bundles 14 skills including UI/UX Pro Max (192 palettes, 79 styles, 74 fonts), App Icon & Logo Craft, Taste-Skill Anti-Slop, 3-Layer Design Systems, Mobile/Web UI, Optical Polish, 5-State UX Flows, Microcopy, Motion Choreography, 100-Point Visual QA, and Code Handoff.",
+  "version": "1.4.0",
+  "description": "Self-contained FigCraft MCP & Industrial UI/UX Design Engineering suite: auto-launches FigCraft (--control 7979) and bundles 15 skills including UI/UX Pro Max (192 palettes, 79 styles, 74 fonts), App Icon & Logo Craft, AI Background Removal (BRIA RMBG 2.0), Taste-Skill Anti-Slop, 3-Layer Design Systems, Mobile/Web UI, Optical Polish, 5-State UX Flows, Microcopy, Motion Choreography, 100-Point Visual QA, and Code Handoff.",
   "author": {
     "name": "Doni Hadimas",
     "url": "https://github.com/donihadimas"
@@ -16,6 +16,7 @@
   "suggestedPrompts": [
     "Buka FigCraft dan buat Design System starter lengkap dengan Light/Dark variables dan komponen Button/Card",
     "Desain 3 layar aplikasi mobile fintech iOS di FigCraft (Home, Transfer, Empty/Error State) dengan standar optical polish",
-    "Desain landing page SaaS modern ukuran Desktop 1440px di FigCraft lalu jalankan audit 100-point ui-critic-audit"
+    "Desain landing page SaaS modern ukuran Desktop 1440px di FigCraft lalu jalankan audit 100-point ui-critic-audit",
+    "Hapus background gambar/logo menggunakan AI RMBG 2.0 dan sesuaikan dengan Safe Area Android Adaptive Icon"
   ]
 }

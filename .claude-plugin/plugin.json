@@ -1,7 +1,7 @@
 {
   "name": "figcraft-studio",
-  "description": "Industrial-grade FigCraft MCP & UI/UX Design Engineering suite: auto-launches FigCraft (--control 7979) and bundles 13 skills including UI/UX Pro Max (192 palettes, 79 styles, 74 fonts), Taste-Skill Anti-Slop, 3-Layer Design Systems, Mobile/Web UI, Optical Polish, 5-State UX Flows, Microcopy, Motion Choreography, 100-Point Visual QA, and Code Handoff.",
-  "version": "1.3.0",
+  "description": "Industrial-grade FigCraft MCP & UI/UX Design Engineering suite: auto-launches FigCraft (--control 7979) and bundles 15 skills including UI/UX Pro Max (192 palettes, 79 styles, 74 fonts), FigCraft App Icon & Logo Craft, AI Background Removal (BRIA RMBG 2.0), Taste-Skill Anti-Slop, 3-Layer Design Systems, Mobile/Web UI, Optical Polish, 5-State UX Flows, Microcopy, Motion Choreography, 100-Point Visual QA, and Code Handoff.",
+  "version": "1.4.0",
   "author": {
     "name": "Doni Hadimas",
     "url": "https://github.com/donihadimas"
@@ -15,6 +15,8 @@
     "mobile-ui",
     "web-ui",
     "anti-slop",
+    "remove-bg",
+    "rmbg",
     "optical-polish",
     "mcp"
   ],

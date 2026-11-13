@@ -5,15 +5,15 @@
     "name": "donihadimas"
   },
   "metadata": {
-    "description": "Industrial-grade FigCraft MCP & UI/UX Design Engineering suite with 13 skills, 192 product color palettes, 79 UI styles, 74 font pairings, auto-launcher, and 100-point Visual QA",
-    "version": "1.3.0"
+    "description": "Industrial-grade FigCraft MCP & UI/UX Design Engineering suite with 15 skills, AI Background Removal (BRIA RMBG 2.0), 192 product color palettes, 79 UI styles, 74 font pairings, auto-launcher, and 100-point Visual QA",
+    "version": "1.4.0"
   },
   "plugins": [
     {
       "name": "figcraft-studio",
       "source": "./",
-      "description": "End-to-end FigCraft MCP automation and industrial UI/UX Design Engineering suite for Claude Code and Google Antigravity. Includes 13 specialized skills (figcraft-automator, figcraft-design-system, figcraft-mobile-ui, figcraft-web-ui, figcraft-to-code, ui-ux-pro-max, design-taste-frontend, frontend-design, ui-optical-polish, ux-flows-and-states, ux-writing-microcopy, ui-motion-choreography, ui-critic-audit), 60+ 24x24 vector icon paths, and auto-attach scripts.",
-      "version": "1.3.0",
+      "description": "End-to-end FigCraft MCP automation and industrial UI/UX Design Engineering suite for Claude Code and Google Antigravity. Includes 15 specialized skills (figcraft-automator, figcraft-design-system, figcraft-icon-craft, figcraft-remove-bg, figcraft-mobile-ui, figcraft-web-ui, figcraft-to-code, ui-ux-pro-max, design-taste-frontend, frontend-design, ui-optical-polish, ux-flows-and-states, ux-writing-microcopy, ui-motion-choreography, ui-critic-audit), 60+ 24x24 vector icon paths, and auto-attach scripts.",
+      "version": "1.4.0",
       "author": {
         "name": "Doni Hadimas",
         "url": "https://github.com/donihadimas"
