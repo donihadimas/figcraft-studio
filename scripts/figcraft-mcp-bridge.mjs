@@ -102,12 +102,122 @@ async function ensureGuiRunning() {
   }
 }
 
-await ensureGuiRunning();
+let attached = await checkPort(PORT);
+let child = spawn(
+  figcraftCli,
+  attached ? ["mcp", "--attach", String(PORT)] : ["mcp"],
+  { stdio: ["pipe", "pipe", "inherit"] }
+);
 
-const child = spawn(figcraftCli, ["mcp", "--attach", String(PORT)], {
-  stdio: "inherit",
+let upgrading = false;
+let initRequest = null;
+let initializedNotif = null;
+let initAckResolver = null;
+
+function attachStdoutHandler(proc, ignoreInitId = null) {
+  let outBuf = "";
+  proc.stdout.on("data", (chunk) => {
+    outBuf += chunk.toString("utf8");
+    const lines = outBuf.split("\n");
+    outBuf = lines.pop() || "";
+    for (const line of lines) {
+      if (!line.trim()) continue;
+      if (ignoreInitId !== null && initAckResolver) {
+        try {
+          const msg = JSON.parse(line);
+          if (msg.id === ignoreInitId) {
+            const resolve = initAckResolver;
+            initAckResolver = null;
+            resolve();
+            continue;
+          }
+        } catch {
+          // forward non-JSON lines as-is
+        }
+      }
+      process.stdout.write(line + "\n");
+    }
+  });
+}
+
+function attachExitHandler(proc) {
+  proc.on("exit", (code) => {
+    if (!upgrading) {
+      process.exit(code ?? 0);
+    }
+  });
+}
+
+attachStdoutHandler(child);
+attachExitHandler(child);
+
+async function upgradeToGuiAttach() {
+  if (attached) return;
+  upgrading = true;
+  await ensureGuiRunning();
+
+  const oldChild = child;
+  const newChild = spawn(figcraftCli, ["mcp", "--attach", String(PORT)], {
+    stdio: ["pipe", "pipe", "inherit"],
+  });
+
+  const initId = initRequest ? initRequest.id : null;
+  const initPromise =
+    initId !== null
+      ? new Promise((resolve) => {
+          initAckResolver = resolve;
+        })
+      : Promise.resolve();
+
+  attachStdoutHandler(newChild, initId);
+  child = newChild;
+  attached = true;
+  upgrading = false;
+  attachExitHandler(newChild);
+  oldChild.kill();
+
+  if (initRequest) {
+    newChild.stdin.write(JSON.stringify(initRequest) + "\n");
+    await initPromise;
+    if (initializedNotif) {
+      newChild.stdin.write(JSON.stringify(initializedNotif) + "\n");
+    }
+  }
+}
+
+let inBuf = "";
+let queue = Promise.resolve();
+
+process.stdin.on("data", (chunk) => {
+  inBuf += chunk.toString("utf8");
+  const lines = inBuf.split("\n");
+  inBuf = lines.pop() || "";
+
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    queue = queue.then(async () => {
+      let msg = null;
+      try {
+        msg = JSON.parse(line);
+      } catch {
+        // forward raw line
+      }
+
+      if (msg?.method === "initialize") {
+        initRequest = msg;
+      } else if (msg?.method === "notifications/initialized") {
+        initializedNotif = msg;
+      } else if (msg?.method === "tools/call" && !attached) {
+        await upgradeToGuiAttach();
+      }
+
+      child.stdin.write(line + "\n");
+    });
+  }
 });
 
-child.on("exit", (code) => {
-  process.exit(code ?? 0);
+process.stdin.on("end", () => {
+  queue.then(() => {
+    child.stdin.end();
+  });
 });

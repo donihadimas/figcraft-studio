@@ -1,7 +1,7 @@
 {
   "name": "figcraft-studio",
   "displayName": "FigCraft Design Studio",
-  "description": "Industrial-grade FigCraft MCP & UI/UX Design Engineering suite with 13 specialized skills (UI/UX Pro Max 192 palettes/79 styles, Taste-Skill Anti-Slop, Optical Polish, 5-State UX Flows, Microcopy, Motion Choreography, 100-Point Visual QA, Mobile/Web/Design System, and Code Handoff).",
+  "description": "Industrial-grade FigCraft MCP & UI/UX Design Engineering suite with 14 specialized skills (UI/UX Pro Max 192 palettes/79 styles, FigCraft App Icon & Logo Craft, Taste-Skill Anti-Slop, Optical Polish, 5-State UX Flows, Microcopy, Motion Choreography, 100-Point Visual QA, Mobile/Web/Design System, and Code Handoff).",
   "version": "1.3.0",
   "author": "Doni Hadimas",
   "license": "MIT",

@@ -60,5 +60,6 @@ Load the specific skill when deep domain rules are needed:
 - **Mobile App (iOS/Android)**: `figcraft-mobile-ui` (Safe areas `59px`/`34px`, `44pt`/`48dp` touch targets, `4/8dp` grid)
 - **Web / Landing / SaaS Dashboard**: `figcraft-web-ui` + `design-taste-frontend` (Design Read, 3 Dials, Bento rules)
 - **Design Tokens & Components**: `figcraft-design-system` (Variables Light/Dark, Styles, Variants)
+- **App Launcher Icons & Brand Logos**: `figcraft-icon-craft` (Android Adaptive Safe Area $\varnothing 626$px, iOS Squircle $n \approx 4.5$, 16px silhouette test, 2-layer decoupled export)
 - **FigCraft $\rightarrow$ Code Handoff**: `figcraft-to-code` (`inspect.code` + `variable.list` + `screenshot`)
 - **Visual QA & Redesign Critique**: `ui-critic-audit` (100-Point Rubric)

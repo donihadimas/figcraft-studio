@@ -54,12 +54,13 @@ npx skills add donihadimas/figcraft-studio --skill ui-optical-polish --skill ux-
 
 ---
 
-## 🧩 13 Bundled Skills (100% Self-Contained)
+## 🧩 14 Bundled Skills (100% Self-Contained)
 
 | Skill | Layer | Description |
 | :--- | :--- | :--- |
 | **`figcraft-automator`** | Engine & Attach | Auto-launches `figcraft --control 7979`, checks TCP port `7979`, and executes atomic `batch` operations + `screenshot` verification loops. |
 | **`figcraft-design-system`** | Tokens & Kits | Builds 3-layer Design Tokens (`Primitive -> Semantic -> Component`), Light/Dark Variable Collections, Typography/Paint Styles, and Master Components + Variants. |
+| **`figcraft-icon-craft`** | App Icons & Logos | Master rules, mathematical keylines (Android Adaptive Safe Area $\varnothing 626$px, iOS Squircle), optical balance, 2-layer decoupled export, and Python asset slicing. |
 | **`figcraft-mobile-ui`** | Mobile (iOS/Android) | Designs iOS (`393×852`) and Android (`412×917`) screens with Safe Area clearance, 44pt/48dp touch targets, 4/8dp spacing rhythm, and crisp vector icons. |
 | **`figcraft-web-ui`** | Web, Landing & SaaS | Designs Desktop Web (`1440px`), Landing Pages, Portfolios, and SaaS Dashboards with Mandatory Design Read, 3 Dials (`Variance`, `Motion`, `Density`), and Bento Grids. |
 | **`figcraft-to-code`** | Dev Handoff | Converts FigCraft frames, variables, and vector assets (`inspect.code` + `inspect_document` + `screenshot`) into production React, Next.js, Tailwind, Flutter, or Compose code. |
